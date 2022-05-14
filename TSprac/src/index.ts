@@ -1,19 +1,25 @@
-let a = 3;
-let b: boolean = true;
-let c: string[] = [];
-
-type student = {
+type Student = {
     id: number;
     name: string;
     age: number;
-    grade: number;
+    grade?: number;
 };
 
-const jaehyeok: student = {
+const jaehyeok: Student = {
     id: 2018102219,
     name: 'jaehyeok Lee',
     age: 23,
     grade: 3,
 };
 
-console.log(jaehyeok);
+const enrollStudent = (
+    id: number,
+    name: string,
+    age: number,
+    grade: number
+): Student => {
+    return { id, name, age, grade };
+};
+
+const a = enrollStudent(123, 'a', 23, 2);
+console.log(typeof a);
