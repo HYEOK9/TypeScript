@@ -1,5 +1,18 @@
-type Add = (a: number, b: number) => number;
+type config = {
+    path: string;
+    state: number;
+};
 
-const addThree: Add = (a, b) => a + b + 3;
+type Push = {
+    (path: string): void;
+    (obj: config): void;
+};
 
-console.log(addThree(4, 2));
+const push: Push = (param) => {
+    if (typeof param === 'string') {
+        console.log(param);
+    } else console.log(param.path, param.state);
+};
+
+push('/');
+push({ path: '/home', state: 1 });
