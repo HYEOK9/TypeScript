@@ -1,25 +1,11 @@
-type Student = {
-    id: number;
-    name: string;
-    age: number;
-    grade?: number;
-};
+let a: unknown;
 
-const jaehyeok: Student = {
-    id: 2018102219,
-    name: 'jaehyeok Lee',
-    age: 23,
-    grade: 3,
-};
+a = 'a is me';
+if (typeof a === 'number') {
+    a += 1;
+}
 
-const enrollStudent = (
-    id: number,
-    name: string,
-    age: number,
-    grade: number
-): Student => {
-    return { id, name, age, grade };
-};
-
-const a = enrollStudent(123, 'a', 23, 2);
-console.log(typeof a);
+if (typeof a === 'string') {
+    a += 'is string';
+}
+console.log(a);
