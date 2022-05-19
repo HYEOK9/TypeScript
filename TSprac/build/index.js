@@ -1,9 +1,6 @@
-const push = (param) => {
-    if (typeof param === 'string') {
-        console.log(param);
-    }
-    else
-        console.log(param.path, param.state);
+const printArray = (array) => {
+    console.log(array);
 };
-push('/');
-push({ path: '/home', state: 1 });
+printArray([2, 1, 3]);
+printArray([true, false, true]);
+printArray([1, 2, 'tasdf']);

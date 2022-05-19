@@ -1,18 +1,11 @@
-type config = {
-    path: string;
-    state: number;
+type Print = {
+    <T>(array: T[]): void;
 };
 
-type Push = {
-    (path: string): void;
-    (obj: config): void;
+const printArray: Print = (array) => {
+    console.log(array);
 };
 
-const push: Push = (param) => {
-    if (typeof param === 'string') {
-        console.log(param);
-    } else console.log(param.path, param.state);
-};
-
-push('/');
-push({ path: '/home', state: 1 });
+printArray([2, 1, 3]);
+printArray([true, false, true]);
+printArray([1, 2, 'tasdf']);
