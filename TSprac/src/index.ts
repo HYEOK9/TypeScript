@@ -1,11 +1,5 @@
-let a: unknown;
+type Add = (a: number, b: number) => number;
 
-a = 'a is me';
-if (typeof a === 'number') {
-    a += 1;
-}
+const addThree: Add = (a, b) => a + b + 3;
 
-if (typeof a === 'string') {
-    a += 'is string';
-}
-console.log(a);
+console.log(addThree(4, 2));
