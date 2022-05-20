@@ -2,12 +2,16 @@ import chalk from 'chalk';
 
 abstract class Student {
     constructor(
-        public id: number,
-        public name: string,
-        public grade: number,
-        private address: string
+        protected id: number,
+        protected name: string,
+        protected grade: number,
+        protected address: string
     ) {}
-    print(): void {
+    abstract print(): void;
+}
+
+class cseStudent extends Student {
+    print() {
         console.log(
             chalk.green(
                 '학번 :',
@@ -20,8 +24,6 @@ abstract class Student {
         );
     }
 }
-
-class cseStudent extends Student {}
 
 const me = new cseStudent(2018102219, '이재혁', 3, '서울 마포구');
 
