@@ -1,11 +1,10 @@
-type Print = {
-    <T>(array: T[]): void;
-};
+class Student {
+    constructor(
+        public id: number,
+        public name: string,
+        public grade: number,
+        private address: string
+    ) {}
+}
 
-const printArray: Print = (array) => {
-    console.log(array);
-};
-
-printArray([2, 1, 3]);
-printArray([true, false, true]);
-printArray([1, 2, 'tasdf']);
+const me = new Student(2018102219, '이재혁', 3, '서울 마포구');
