@@ -1,33 +1,29 @@
-import chalk from 'chalk';
-class Student {
-    constructor(name, id) {
+class Hasuin {
+    constructor(origin, grade, name, cost, attack, defense) {
+        this.origin = origin;
+        this.grade = grade;
         this.name = name;
-        this.id = id;
+        this.cost = cost;
+        this.attack = attack;
+        this.defense = defense;
+        this.getName = () => {
+            return this.name;
+        };
+        this.getCost = () => {
+            return this.cost;
+        };
     }
 }
-class Dict {
-    constructor() {
-        this.add = (newStu) => {
-            this.dict[newStu.name] = newStu.id;
-        };
-        this.print = () => {
-            for (const [k, v] of Object.entries(this.dict)) {
-                console.log(chalk.green(`${k} : ${v}`));
-            }
-        };
-        this.dict = {};
-    }
-    getID(name) {
-        return this.dict[name];
+class Dirty_Noum extends Hasuin {
+    constructor(origin, grade, name, cost, attack, defense) {
+        super(origin, grade, name, cost, attack, defense);
+        this.origin = origin;
+        this.grade = grade;
+        this.name = name;
+        this.cost = cost;
+        this.attack = attack;
+        this.defense = defense;
     }
 }
-const a = new Student('a', 1);
-const b = new Student('b', 2);
-const c = new Student('c', 3);
-const stuDict = new Dict();
-stuDict.add(a);
-stuDict.add(b);
-stuDict.add(c);
-console.log(stuDict.getID('a'));
-console.log(stuDict.getID('b'));
-console.log(stuDict.getID('c'));
+const card = new Dirty_Noum('Normal', 'normal', 'dirty_noum', 1, 2, 1);
+console.log(card.cost);

@@ -1,38 +1,59 @@
-import chalk from 'chalk';
-
-type Students = {
-    [key: string]: number;
-};
-class Student {
-    constructor(public name: string, public id: number) {}
+interface CardPlate {
+    name: string;
+    cost: number;
+    getName(): string;
+    getCost(): number;
 }
 
-class Dict {
-    private dict: Students;
-    constructor() {
-        this.dict = {};
-    }
-    add = (newStu: Student) => {
-        this.dict[newStu.name] = newStu.id;
+abstract class Hasuin implements CardPlate {
+    constructor(
+        protected readonly origin:
+            | 'Normal'
+            | 'Druid'
+            | 'Mage'
+            | 'Warrior'
+            | 'Paladin',
+        protected readonly grade:
+            | 'no_grade'
+            | 'normal'
+            | 'unique'
+            | 'hero'
+            | 'legend',
+        public readonly name: string,
+        public readonly cost: number,
+        protected attack: number,
+        protected defense: number
+    ) {}
+    getName = (): string => {
+        return this.name;
     };
-    print = () => {
-        for (const [k, v] of Object.entries(this.dict)) {
-            console.log(chalk.green(`${k} : ${v}`));
-        }
+    getCost = (): number => {
+        return this.cost;
     };
-    getIdByName(name: string) {
-        return this.dict[name];
+}
+
+class Dirty_Noum extends Hasuin implements CardPlate {
+    constructor(
+        protected readonly origin:
+            | 'Normal'
+            | 'Druid'
+            | 'Mage'
+            | 'Warrior'
+            | 'Paladin',
+        protected readonly grade:
+            | 'no_grade'
+            | 'normal'
+            | 'unique'
+            | 'hero'
+            | 'legend',
+        public readonly name: string,
+        public readonly cost: number,
+        protected attack: number,
+        protected defense: number
+    ) {
+        super(origin, grade, name, cost, attack, defense);
     }
 }
 
-const a = new Student('a', 1);
-const b = new Student('b', 2);
-const c = new Student('c', 3);
-const stuDict = new Dict();
-stuDict.add(a);
-stuDict.add(b);
-stuDict.add(c);
-
-console.log(stuDict.getIdByName('a'));
-console.log(stuDict.getIdByName('b'));
-console.log(stuDict.getIdByName('c'));
+const card = new Dirty_Noum('Normal', 'normal', 'dirty_noum', 1, 2, 1);
+console.log(card.cost);
