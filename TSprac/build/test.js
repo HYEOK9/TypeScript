@@ -1,25 +1,28 @@
-import chalk from 'chalk';
 class Student {
-    constructor(id, name, grade, address) {
-        this.id = id;
+    constructor(name, id) {
         this.name = name;
-        this.grade = grade;
-        this.address = address;
+        this.id = id;
     }
 }
-class cseStudent extends Student {
-    print() {
-        console.log(
-            chalk.green(
-                '학번 :',
-                this.id,
-                '\n이름 :',
-                this.name,
-                '\n학년 :',
-                this.grade
-            )
-        );
+class Dict {
+    constructor() {
+        this.add = (newStu) => {
+            this.dict[newStu.name] = newStu.id;
+        };
+        this.print = () => {
+            for (const [k, v] of Object.entries(this.dict)) {
+                console.log(`${k} : ${v}`);
+            }
+        };
+        this.dict = {};
     }
 }
-const me = new cseStudent(2018102219, '이재혁', 3, '서울 마포구');
-me.print();
+const a = new Student('a', 1);
+const b = new Student('b', 2);
+const c = new Student('c', 3);
+const stuDict = new Dict();
+stuDict.add(a);
+stuDict.add(b);
+stuDict.add(c);
+stuDict.print();
+export {};

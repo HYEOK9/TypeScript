@@ -1,30 +1,33 @@
 import chalk from 'chalk';
 
-abstract class Student {
-    constructor(
-        protected id: number,
-        protected name: string,
-        protected grade: number,
-        protected address: string
-    ) {}
-    abstract print(): void;
+type Students = {
+    [key: string]: number;
+};
+class Student {
+    constructor(public name: string, public id: number) {}
 }
 
-class cseStudent extends Student {
-    print() {
-        console.log(
-            chalk.green(
-                '학번 :',
-                this.id,
-                '\n이름 :',
-                this.name,
-                '\n학년 :',
-                this.grade
-            )
-        );
+class Dict {
+    private dict: Students;
+    constructor() {
+        this.dict = {};
     }
+    add = (newStu: Student) => {
+        this.dict[newStu.name] = newStu.id;
+    };
+    print = () => {
+        for (const [k, v] of Object.entries(this.dict)) {
+            console.log(`${k} : ${v}`);
+        }
+    };
 }
 
-const me = new cseStudent(2018102219, '이재혁', 3, '서울 마포구');
+const a = new Student('a', 1);
+const b = new Student('b', 2);
+const c = new Student('c', 3);
+const stuDict = new Dict();
+stuDict.add(a);
+stuDict.add(b);
+stuDict.add(c);
 
-me.print();
+stuDict.print();
