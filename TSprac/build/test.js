@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 class Student {
     constructor(name, id) {
         this.name = name;
@@ -11,10 +12,13 @@ class Dict {
         };
         this.print = () => {
             for (const [k, v] of Object.entries(this.dict)) {
-                console.log(`${k} : ${v}`);
+                console.log(chalk.green(`${k} : ${v}`));
             }
         };
         this.dict = {};
+    }
+    getID(name) {
+        return this.dict[name];
     }
 }
 const a = new Student('a', 1);
@@ -24,5 +28,6 @@ const stuDict = new Dict();
 stuDict.add(a);
 stuDict.add(b);
 stuDict.add(c);
-stuDict.print();
-export {};
+console.log(stuDict.getID('a'));
+console.log(stuDict.getID('b'));
+console.log(stuDict.getID('c'));

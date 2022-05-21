@@ -17,9 +17,12 @@ class Dict {
     };
     print = () => {
         for (const [k, v] of Object.entries(this.dict)) {
-            console.log(`${k} : ${v}`);
+            console.log(chalk.green(`${k} : ${v}`));
         }
     };
+    getIdByName(name: string) {
+        return this.dict[name];
+    }
 }
 
 const a = new Student('a', 1);
@@ -30,4 +33,6 @@ stuDict.add(a);
 stuDict.add(b);
 stuDict.add(c);
 
-stuDict.print();
+console.log(stuDict.getIdByName('a'));
+console.log(stuDict.getIdByName('b'));
+console.log(stuDict.getIdByName('c'));
