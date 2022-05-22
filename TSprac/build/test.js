@@ -1,4 +1,16 @@
+'use strict';
+
 class Hasuin {
+    //@ts-check
+    /**
+     *
+     * @param {string} origin
+     * @param {string} grade
+     * @param {string} name
+     * @param {number} cost
+     * @param {number} attack
+     * @param {number} defense
+     */
     constructor(origin, grade, name, cost, attack, defense) {
         this.origin = origin;
         this.grade = grade;
@@ -9,6 +21,11 @@ class Hasuin {
         this.getName = () => {
             return this.name;
         };
+        //@ts-check
+        /**
+         *
+         * @returns number
+         */
         this.getCost = () => {
             return this.cost;
         };
