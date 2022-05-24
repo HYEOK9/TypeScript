@@ -1,46 +1,36 @@
-'use strict';
-
-class Hasuin {
-    //@ts-check
-    /**
-     *
-     * @param {string} origin
-     * @param {string} grade
-     * @param {string} name
-     * @param {number} cost
-     * @param {number} attack
-     * @param {number} defense
-     */
-    constructor(origin, grade, name, cost, attack, defense) {
-        this.origin = origin;
-        this.grade = grade;
-        this.name = name;
-        this.cost = cost;
-        this.attack = attack;
-        this.defense = defense;
-        this.getName = () => {
-            return this.name;
-        };
-        //@ts-check
-        /**
-         *
-         * @returns number
-         */
-        this.getCost = () => {
-            return this.cost;
-        };
+import crypto from 'crypto';
+class Block {
+    constructor(prevHash, data, height) {
+        this.prevHash = prevHash;
+        this.data = data;
+        this.height = height;
+        this.hash = Block.calculateHash(prevHash, data, height);
     }
 }
-class Dirty_Noum extends Hasuin {
-    constructor(origin, grade, name, cost, attack, defense) {
-        super(origin, grade, name, cost, attack, defense);
-        this.origin = origin;
-        this.grade = grade;
-        this.name = name;
-        this.cost = cost;
-        this.attack = attack;
-        this.defense = defense;
+Block.calculateHash = (prevHash, data, height) => {
+    const toHash = `${prevHash}${data}${height}`;
+    return crypto.createHash('sha512').update(toHash).digest('hex');
+};
+class BlockChain {
+    constructor() {
+        this.getPrevHash = () => {
+            if (this.blocks.length == 0)
+                return '';
+            return this.blocks[this.blocks.length - 1].hash;
+        };
+        this.addBlock = (data) => {
+            const newBlock = new Block(this.getPrevHash(), data, this.blocks.length + 1);
+            this.blocks.push(newBlock);
+        };
+        this.getBlocks = () => {
+            return [...this.blocks];
+        };
+        this.blocks = [];
     }
 }
-const card = new Dirty_Noum('Normal', 'normal', 'dirty_noum', 1, 2, 1);
-console.log(card.cost);
+const blockchain = new BlockChain();
+blockchain.addBlock('first');
+blockchain.addBlock('second');
+blockchain.addBlock('third');
+blockchain.addBlock('fourth');
+console.log(blockchain.getBlocks());

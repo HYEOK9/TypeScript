@@ -1,59 +1,56 @@
-interface CardPlate {
-    name: string;
-    cost: number;
-    getName(): string;
-    getCost(): number;
+import crypto from 'crypto';
+interface BlockShape {
+    hash: string;
+    prevHash: string;
+    data: string;
+    height: number;
 }
 
-abstract class Hasuin implements CardPlate {
+class Block implements BlockShape {
+    public hash: string;
     constructor(
-        protected readonly origin:
-            | 'Normal'
-            | 'Druid'
-            | 'Mage'
-            | 'Warrior'
-            | 'Paladin',
-        protected readonly grade:
-            | 'no_grade'
-            | 'normal'
-            | 'unique'
-            | 'hero'
-            | 'legend',
-        public readonly name: string,
-        public readonly cost: number,
-        protected attack: number,
-        protected defense: number
-    ) {}
-    getName = (): string => {
-        return this.name;
-    };
-    getCost = (): number => {
-        return this.cost;
-    };
-}
-
-class Dirty_Noum extends Hasuin implements CardPlate {
-    constructor(
-        protected readonly origin:
-            | 'Normal'
-            | 'Druid'
-            | 'Mage'
-            | 'Warrior'
-            | 'Paladin',
-        protected readonly grade:
-            | 'no_grade'
-            | 'normal'
-            | 'unique'
-            | 'hero'
-            | 'legend',
-        public readonly name: string,
-        public readonly cost: number,
-        protected attack: number,
-        protected defense: number
+        public prevHash: string,
+        public data: string,
+        public height: number
     ) {
-        super(origin, grade, name, cost, attack, defense);
+        this.hash = Block.calculateHash(prevHash, data, height);
     }
+    static calculateHash = (
+        prevHash: string,
+        data: string,
+        height: number
+    ): string => {
+        const toHash = `${prevHash}${data}${height}`;
+        return crypto.createHash('sha512').update(toHash).digest('hex');
+    };
 }
 
-const card = new Dirty_Noum('Normal', 'normal', 'dirty_noum', 1, 2, 1);
-console.log(card.cost);
+class BlockChain {
+    private blocks: Block[];
+    constructor() {
+        this.blocks = [];
+    }
+    private getPrevHash = (): string => {
+        if (this.blocks.length == 0) return '';
+        return this.blocks[this.blocks.length - 1].hash;
+    };
+    public addBlock = (data: string): void => {
+        const newBlock = new Block(
+            this.getPrevHash(),
+            data,
+            this.blocks.length + 1
+        );
+        this.blocks.push(newBlock);
+    };
+    public getBlocks = (): Block[] => {
+        return [...this.blocks];
+    };
+}
+
+const blockchain = new BlockChain();
+
+blockchain.addBlock('first');
+blockchain.addBlock('second');
+blockchain.addBlock('third');
+blockchain.addBlock('fourth');
+console.log(blockchain.getBlocks());
